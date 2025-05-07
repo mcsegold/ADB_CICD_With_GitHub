@@ -1,0 +1,14 @@
+# For running tests
+pytest
+pytest-cov  # Optional: for checking test coverage
+
+# For linting and formatting (if you run these in your CI)
+flake8
+black
+isort     # Optional: for sorting imports
+
+# Common data libraries that your utility functions (tested by unit tests) might use,
+# even if Spark is not involved in the unit test itself.
+pandas
+numpy
+# Add any other specific Python libraries your non-Spark utility code depends on.
