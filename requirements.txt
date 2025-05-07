@@ -1,14 +1,15 @@
-# For running tests
+# For unit testing
 pytest
-pytest-cov  # Optional: for checking test coverage
 
-# For linting and formatting (if you run these in your CI)
-flake8
-black
-isort     # Optional: for sorting imports
+# For Databricks CLI interaction
+databricks-cli
 
-# Common data libraries that your utility functions (tested by unit tests) might use,
-# even if Spark is not involved in the unit test itself.
+#  If using Python notebooks or REST API scripting
+requests
+
+# If using notebooks and deploying them
+databricks-sdk
+
+# If code uses pandas, numpy, etc., include them too
 pandas
 numpy
-# Add any other specific Python libraries your non-Spark utility code depends on.
