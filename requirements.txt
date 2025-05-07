@@ -14,3 +14,5 @@ databricks-sdk
 # If code uses pandas, numpy, etc., include them too
 pandas
 numpy
+sys
+os
