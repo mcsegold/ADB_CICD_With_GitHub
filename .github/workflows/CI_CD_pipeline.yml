@@ -1,18 +1,17 @@
-name: CI for Databricks
+name: CI/CD for Databricks
 
 on:
   push:
     branches:
-      - Feature1
       - main
-
+      - Feature1
   pull_request:
     branches:
-      - Feature1
       - main
+      - Feature1
 
 jobs:
-  test:
+  Unit_and_Integrity_tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,10 +27,35 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          python -m pip install pytest
-          
+                    
       - name: Run unit tests
-        run: pytest tests/unit
+        run: pytest --nbval tests/unit
 
       - name: Run integration tests
-        run: pytest tests/integration
+        run: pytest --nbval tests/integration
+
+  Deployment_to_Production:
+    if: github.ref == 'refs/heads/main'
+    needs: Unit_and_Integrity_tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        run: pip install databricks-cli
+
+      - name: Configure Databricks CLI
+        run: |
+          databricks configure --token <<EOF
+          ${{ secrets.DATABRICKS_HOST }}
+          ${{ secrets.DATABRICKS_TOKEN }}
+          EOF
+
+      - name: Deploy to Databricks
+        run: |
+          # Example: Deploy all files in /notebooks folder to workspace /Production
+          for file in notebooks/*; do
+            databricks workspace import "$file" "/Production/$(basename "$file")" --format JUPYTER --overwrite
+          done
