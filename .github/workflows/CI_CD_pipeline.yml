@@ -57,5 +57,5 @@ jobs:
         run: |
           # Example: Deploy all files in /notebooks folder to workspace /Production
           for file in notebooks/*; do
-            databricks workspace import "$file" "/Production/$(basename "$file")" --format JUPYTER --overwrite
+            databricks workspace import "$file" "/Production/$(basename "$file")" --format JUPYTER --overwrite --language jupyter
           done
