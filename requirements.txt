@@ -1,6 +1,7 @@
 # For unit testing
 pytest
 nbval
+pyspark
 
 # For Databricks CLI interaction
 databricks-cli
