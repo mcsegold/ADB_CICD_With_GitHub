@@ -11,7 +11,7 @@ on:
       - Feature1
 
 jobs:
-  Unit and Integrity tests:
+  Unit_and_Integrity_tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,9 +34,9 @@ jobs:
       - name: Run integration tests
         run: pytest --nbval tests/integration
 
-  Deployment to Production:
+  Deployment_to_Production:
     if: github.ref == 'refs/heads/main'
-    needs: Unit and Integrity tests
+    needs: Unit_and_Integrity_tests
     runs-on: ubuntu-latest
 
     steps:
