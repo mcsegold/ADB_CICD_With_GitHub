@@ -52,13 +52,13 @@ jobs:
           ${{ secrets.DATABRICKS_HOST }}
           ${{ secrets.DATABRICKS_TOKEN }}
           EOF
-
+          
       - name: Deploy to Databricks
         run: |
-        # Ensure target folder exists
-        databricks workspace mkdirs /Production
+          # Ensure target folder exists
+          databricks workspace mkdirs /Production
 
-        # Import all notebooks
-        for file in notebooks/*.ipynb; do
-          databricks workspace import "$file" "/Production/$(basename "$file")" --format JUPYTER --overwrite
-        done
+          # Import all notebooks in notebooks/ folder into /Production
+          for file in notebooks/*.ipynb; do
+            databricks workspace import "$file" "/Production/$(basename "$file")" --format JUPYTER --overwrite --language PYTHON
+          done
