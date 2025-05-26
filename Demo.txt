@@ -1,1 +1,1 @@
-I have commited these changes file first
+This is just a demo file after conflict is resolved
